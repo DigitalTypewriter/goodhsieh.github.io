@@ -6,31 +6,63 @@
   <title>My Portfolio</title>
   <style>
     body { font-family: sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.6; }
-    /* Simple Menu Styling */
+    
+    /* Top Menu that jumps to each project */
     nav { background: #f4f4f4; padding: 15px; border-radius: 8px; margin-bottom: 30px; }
     nav a { margin-right: 20px; text-decoration: none; color: #333; font-weight: bold; }
     nav a:hover { color: #0066cc; }
-    img { max-width: 100%; height: auto; border-radius: 8px; }
+
+    img { max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 15px; }
+    .project { margin-bottom: 50px; border-bottom: 1px solid #eee; padding-bottom: 30px; }
+
+    /* Styling for the clickable "Read More" drawer */
+    details { background: #f9f9f9; padding: 12px 16px; border-radius: 6px; border: 1px solid #ddd; }
+    summary { font-weight: bold; color: #0066cc; cursor: pointer; }
+    summary:hover { text-decoration: underline; }
+    .hidden-content { margin-top: 15px; }
   </style>
 </head>
 <body>
 
-  <!-- CLICKABLE NAVIGATION MENU -->
+  <!-- JUMP MENU (Links to project IDs below) -->
   <nav>
-    <a href="index.html">Home</a>
-    <a href="project1.html">Tel Aviv Photo Series</a>
-    <a href="project2.html">Case Study & Video</a>
+    <a href="#project1">Tel Aviv Photo Series</a>
+    <a href="#project2">Video & PDF Case Study</a>
   </nav>
 
   <h1>My Portfolio</h1>
 
-  <!-- CLICKABLE PROJECT PREVIEW -->
-  <div class="project">
-    <h2><a href="project1.html">Tel Aviv Photo Series</a></h2>
-    <a href="project1.html">
-      <img src="images/netanyahu-tel-aviv-e1792925646830.webp" alt="Tel Aviv photo">
-    </a>
-    <p><a href="project1.html">Click here to view full project details &rarr;</a></p>
+  <!-- PROJECT 1 -->
+  <div class="project" id="project1">
+    <h2>Tel Aviv Photo Series</h2>
+    <img src="images/netanyahu-tel-aviv-e1792925646830.webp" alt="Tel Aviv photo">
+    <p>A brief one-sentence overview of this photojournalism piece.</p>
+
+    <!-- EXPANDABLE DETAILS DRAWER -->
+    <details>
+      <summary>Read More & View Documents</summary>
+      <div class="hidden-content">
+        <p>Here is the full backstory, location context, and technical notes for this project. It remains hidden until clicked.</p>
+        <p><a href="docs/project1-notes.pdf" target="_blank">Open Full Project PDF &rarr;</a></p>
+      </div>
+    </details>
+  </div>
+
+  <!-- PROJECT 2 -->
+  <div class="project" id="project2">
+    <h2>Video & PDF Case Study</h2>
+    <p>Short introduction to your second project.</p>
+
+    <!-- EXPANDABLE DETAILS DRAWER -->
+    <details>
+      <summary>Read More & Watch Video</summary>
+      <div class="hidden-content">
+        <p>Detailed breakdown of the project goes here.</p>
+        <video width="100%" controls>
+          <source src="videos/reel.mp4" type="video/mp4">
+        </video>
+      </div>
+    </details>
   </div>
 
 </body>
