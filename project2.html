@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Portfolio</title>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.6; }
+    
+    /* Top Menu that jumps to each project */
+    nav { background: #f4f4f4; padding: 15px; border-radius: 8px; margin-bottom: 30px; }
+    nav a { margin-right: 20px; text-decoration: none; color: #333; font-weight: bold; }
+    nav a:hover { color: #0066cc; }
+
+    img { max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 15px; }
+    .project { margin-bottom: 50px; border-bottom: 1px solid #eee; padding-bottom: 30px; }
+
+    /* Styling for the clickable "Read More" drawer */
+    details { background: #f9f9f9; padding: 12px 16px; border-radius: 6px; border: 1px solid #ddd; margin-top: 15px; }
+    summary { font-weight: bold; color: #0066cc; cursor: pointer; }
+    summary:hover { text-decoration: underline; }
+    .hidden-content { margin-top: 15px; }
+
+    /* --- PROJECT 2 CAROUSEL STYLES --- */
+    .carousel-container {
+      position: relative;
+      margin-bottom: 20px; /* Spacing between carousel and video below */
+    }
+    .carousel-track {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      gap: 12px;
+      scrollbar-width: none; /* Firefox */
+    }
+    .carousel-track::-webkit-scrollbar {
+      display: none; /* Chrome/Safari */
+    }
+    .carousel-slide {
+      flex: 0 0 100%;
+      scroll-snap-align: start;
+    }
+    .carousel-slide img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 8px;
+      display: block;
+      margin-bottom: 0;
+    }
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      border: none;
+      padding: 10px 14px;
+      cursor: pointer;
+      border-radius: 50%;
+      font-size: 16px;
+    }
+    .carousel-btn:hover { background: rgba(0, 0, 0, 0.85); }
+    .prev-btn { left: 10px; }
+    .next-btn { right: 10px; }
+
+    /* --- RESPONSIVE 16:9 VIDEO WRAPPER --- */
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      height: 0;
+      overflow: hidden;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- JUMP MENU (Links to project IDs below) -->
+  <nav>
+    <a href="#project1">Tel Aviv Photo Series</a>
+    <a href="#project2">Video & PDF Case Study</a>
+  </nav>
+
+  <h1>My Portfolio</h1>
+
+  <!-- PROJECT 1 -->
+  <div class="project" id="project1">
+    <h2>Tel Aviv Photo Series</h2>
+    <img src="images/netanyahu-tel-aviv-e1792925646830.webp" alt="Tel Aviv photo">
+    <p>A brief one-sentence overview of this photojournalism piece.</p>
+
+    <!-- EXPANDABLE DETAILS DRAWER -->
+    <details>
+      <summary>Read More & View Documents</summary>
+      <div class="hidden-content">
+        <p>Here is the full backstory, location context, and technical notes for this project. It remains hidden until clicked.</p>
+        <p><a href="docs/project1-notes.pdf" target="_blank">Open Full Project PDF &rarr;</a></p>
+      </div>
+    </details>
+  </div>
+
+  <!-- PROJECT 2 (Hyperlinked from #project2 in nav) -->
+  <div class="project" id="project2">
+    <h2>Video & PDF Case Study</h2>
+    <p>Short introduction to your second project.</p>
+
+    <!-- 1. IMAGE CAROUSEL (Above Video) -->
+    <div class="carousel-container">
+      <div class="carousel-track" id="project2-track">
+        <div class="carousel-slide"><img src="Takeout_area.jpg" alt="Project 2 screenshot 1"></div>
+        <div class="carousel-slide"><img src="Takeout_75deg.jpg" alt="Project 2 screenshot 2"></div>
+        <div class="carousel-slide"><img src="Takeout_60deg.jpg" alt="Project 2 screenshot 3"></div>
+	<div class="carousel-slide"><img src="Takeout_45deg_design3.jpg" alt="Project 2 screenshot 3"></div>
+	<div class="carousel-slide"><img src="Takeout_45deg_design2.jpg" alt="Project 2 screenshot 3"></div>
+	<div class="carousel-slide"><img src="Takeout_CloseUp_design1.jpg" alt="Project 2 screenshot 3"></div>
+      </div>
+      <button class="carousel-btn prev-btn" onclick="moveSlide('project2-track', -1)">&#10094;</button>
+      <button class="carousel-btn next-btn" onclick="moveSlide('project2-track', 1)">&#10095;</button>
+    </div>
+
+    <!-- 2. EMBEDDED VIDEO PLAYER (Replace VIDEO_ID with your YouTube video ID) -->
+    <div class="video-wrapper">
+      <iframe 
+        src="https://youtube.com" 
+        title="Project 2 Video"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <!-- EXPANDABLE DETAILS DRAWER -->
+    <details>
+      <summary>Read More & View Case Study PDF</summary>
+      <div class="hidden-content">
+        <p>Detailed breakdown of the project goes here.</p>
+        <p><a href="docs/project2-notes.pdf" target="_blank">Open Case Study PDF &rarr;</a></p>
+      </div>
+    </details>
+  </div>
+
+  <script>
+    function moveSlide(trackId, direction) {
+      const track = document.getElementById(trackId);
+      const slideWidth = track.clientWidth;
+      track.scrollBy({ left: direction * slideWidth, behavior: 'smooth' });
+    }
+  </script>
+
+</body>
+</html>
