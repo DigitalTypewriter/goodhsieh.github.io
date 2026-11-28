@@ -30,8 +30,12 @@ nav {
 .hero-layout {
   display: flex;
   gap: 30px;
-  align-items: flex-start;
+  align-items: flex-end; /* Aligns text to the bottom of the carousel */
   margin-bottom: 30px;
+}
+
+.project-info p:last-child {
+  margin-bottom: 0; /* Removes default paragraph gap at the bottom */
 }
 
 .hero-layout .carousel-container {
@@ -217,16 +221,8 @@ nav {
     <div class="project-info">
       <h1>ThermalActuator</h1>
       <p>Short introduction to the ThermalActuator project.</p>
-
-      <details id="details">
-        <summary>Read More &amp; View Case Study PDF</summary>
-        <div class="hidden-content">
-          <p>Detailed breakdown of the ThermalActuator project goes here.</p>
-          <p><a href="docs/project2-notes.pdf" target="_blank">Open Case Study PDF &rarr;</a></p>
-        </div>
-      </details>
     </div>
-
+    
   </div>
 
   <!-- BELOW: EMBEDDED YOUTUBE VIDEO -->
