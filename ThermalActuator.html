@@ -6,23 +6,24 @@
   <title>Thermal Actuator</title>
   <style>
     html { scroll-behavior: smooth; }
-    body {
+   body {
   font-family: sans-serif;
   max-width: 800px;
-  margin: 0 auto 40px; /* Changed from 40px auto so it touches the top */
-  padding: 0 20px;
+  margin: 0 auto 40px;
+  padding: 80px 20px 0; /* Adds space at the top so content isn't hidden behind the bar */
   line-height: 1.6;
 }
 
-/* Top Menu Bar */
 nav {
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 1000; /* Keeps it above the carousel and buttons when scrolling */
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 1000;
   background: #f4f4f4;
-  padding: 15px;
-  border-radius: 0 0 8px 8px; /* Flat top corners, rounded bottom corners */
-  margin-bottom: 30px;
+  padding: 15px 20px;
+  border-bottom: 1px solid #ddd;
 }
     nav a { margin-right: 20px; text-decoration: none; color: #333; font-weight: bold; }
     nav a:hover { color: #0066cc; }
