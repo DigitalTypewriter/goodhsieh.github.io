@@ -194,38 +194,85 @@
   function moveSlide(trackId, direction) {
     const track = document.getElementById(trackId);
     const slideWidth = track.clientWidth;
-    track.scrollBy({ left: direction * slideWidth, behavior: 'smooth' });
+    const maxScroll = track.scrollWidth - slideWidth;
 
-    // Remove sticky focus on mobile after tapping a button
+    // Wrap back to start if clicking "next" on the last slide
+    if (direction > 0 && track.scrollLeft >= maxScroll - 5) {
+      track.scrollTo({ left: 0, behavior: 'smooth' });
+    } 
+    // Wrap to end if clicking "prev" on the first slide
+    else if (direction < 0 && track.scrollLeft <= 5) {
+      track.scrollTo({ left: maxScroll, behavior: 'smooth' });
+    } 
+    else {
+      track.scrollBy({ left: direction * slideWidth, behavior: 'smooth' });
+    }
+
     if (document.activeElement instanceof HTMLElement) {
       document.activeElement.blur();
     }
   }
 
   document.querySelectorAll('.carousel-container').forEach(carousel => {
+    const track = carousel.querySelector('.carousel-track');
     let hideTimeout;
+    let autoSlideTimer;
+    let resumeTimeout;
 
-    // Desktop mouse enter/leave
+    // --- AUTO-SLIDE LOGIC ---
+    const startAutoSlide = () => {
+      clearInterval(autoSlideTimer);
+      autoSlideTimer = setInterval(() => {
+        const slideWidth = track.clientWidth;
+        const maxScroll = track.scrollWidth - slideWidth;
+
+        // Loop back to first slide at the end, otherwise advance 1 slide
+        if (track.scrollLeft >= maxScroll - 5) {
+          track.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          track.scrollBy({ left: slideWidth, behavior: 'smooth' });
+        }
+      }, 5000); // Slides every 5 seconds when idle
+    };
+
+    const pauseAutoSlide = () => {
+      clearInterval(autoSlideTimer);
+      clearTimeout(resumeTimeout);
+    };
+
+    // Start auto-sliding when page loads
+    startAutoSlide();
+
+    // --- DESKTOP MOUSE INTERACTION ---
     carousel.addEventListener('pointerenter', (e) => {
       if (e.pointerType === 'mouse') {
         carousel.classList.add('show-controls');
+        pauseAutoSlide(); // Pause while user is inspecting/hovering
       }
     });
 
     carousel.addEventListener('pointerleave', (e) => {
       if (e.pointerType === 'mouse') {
         carousel.classList.remove('show-controls');
+        startAutoSlide(); // Resume when mouse leaves
       }
     });
 
-    // Mobile touch auto-hide after 2 seconds
+    // --- MOBILE TOUCH INTERACTION ---
     carousel.addEventListener('touchstart', () => {
       carousel.classList.add('show-controls');
       clearTimeout(hideTimeout);
+      pauseAutoSlide(); // Pause while user is tapping/swiping
 
+      // Hide arrows after 2 seconds
       hideTimeout = setTimeout(() => {
         carousel.classList.remove('show-controls');
       }, 2000);
+
+      // Resume auto-sliding after 5 seconds of idle time
+      resumeTimeout = setTimeout(() => {
+        startAutoSlide();
+      }, 5000);
     }, { passive: true });
   });
 </script>
