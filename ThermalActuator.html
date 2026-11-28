@@ -73,8 +73,9 @@
   font-size: 24px;
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.85));
   -webkit-tap-highlight-color: transparent;
+  outline: none;
 
-  /* Hidden until user hovers (desktop) or taps (mobile) */
+  /* Hidden by default */
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.25s ease, transform 0.25s ease;
@@ -90,37 +91,29 @@
   transform: translate(10px, -50%);
 }
 
-/* 1. Mobile tap-to-reveal (controlled strictly by the JS timer) */
+/* Single class controls visibility for BOTH desktop & mobile */
 .carousel-container.show-controls .carousel-btn {
   opacity: 0.85;
   pointer-events: auto;
   transform: translate(0, -50%);
 }
 
-/* 2. Desktop-only mouse hover (prevents sticky hover on phones) */
-@media (hover: hover) {
-  .carousel-container:hover .carousel-btn {
-    opacity: 0.85;
-    pointer-events: auto;
-    transform: translate(0, -50%);
-  }
-
+/* Direct pointer hover (desktop mouse only) */
+@media (pointer: fine) {
   .carousel-btn:hover {
-    opacity: 1 !important;
+    opacity: 1;
   }
-
   .prev-btn:hover {
     transform: translate(-3px, -50%) scale(1.15);
   }
-
   .next-btn:hover {
     transform: translate(3px, -50%) scale(1.15);
   }
 }
 
-/* 3. Finger press / click animation (works on both mobile and desktop) */
+/* Finger press / click animation */
 .carousel-btn:active {
-  opacity: 1 !important;
+  opacity: 1;
 }
 .prev-btn:active {
   transform: translate(-3px, -50%) scale(1.15);
@@ -198,24 +191,41 @@
   </div>
 
 <script>
-  // 1. Your existing left/right click function
   function moveSlide(trackId, direction) {
     const track = document.getElementById(trackId);
     const slideWidth = track.clientWidth;
     track.scrollBy({ left: direction * slideWidth, behavior: 'smooth' });
+
+    // Remove sticky focus on mobile after tapping a button
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
   }
 
-  // 2. Mobile tap-to-reveal animation (for all carousels on the page)
   document.querySelectorAll('.carousel-container').forEach(carousel => {
     let hideTimeout;
 
+    // Desktop mouse enter/leave
+    carousel.addEventListener('pointerenter', (e) => {
+      if (e.pointerType === 'mouse') {
+        carousel.classList.add('show-controls');
+      }
+    });
+
+    carousel.addEventListener('pointerleave', (e) => {
+      if (e.pointerType === 'mouse') {
+        carousel.classList.remove('show-controls');
+      }
+    });
+
+    // Mobile touch auto-hide after 2 seconds
     carousel.addEventListener('touchstart', () => {
       carousel.classList.add('show-controls');
       clearTimeout(hideTimeout);
 
       hideTimeout = setTimeout(() => {
         carousel.classList.remove('show-controls');
-      }, 1500);
+      }, 2000);
     }, { passive: true });
   });
 </script>
