@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Portfolio</title>
+  <title>ThermalActuator</title>
   <style>
     html { scroll-behavior: smooth; }
     body { font-family: sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.6; }
-    
-    /* Top Menu that jumps to each project */
+
+    /* Top Menu Bar */
     nav { background: #f4f4f4; padding: 15px; border-radius: 8px; margin-bottom: 30px; }
     nav a { margin-right: 20px; text-decoration: none; color: #333; font-weight: bold; }
     nav a:hover { color: #0066cc; }
 
     img { max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 15px; }
-    .project { margin-bottom: 50px; border-bottom: 1px solid #eee; padding-bottom: 30px; }
+    .project { margin-bottom: 50px; padding-bottom: 30px; }
 
     /* Styling for the clickable "Read More" drawer */
     details { background: #f9f9f9; padding: 12px 16px; border-radius: 6px; border: 1px solid #ddd; margin-top: 15px; }
@@ -22,17 +22,16 @@
     summary:hover { text-decoration: underline; }
     .hidden-content { margin-top: 15px; }
 
-    /* --- PROJECT 2 CAROUSEL STYLES --- */
+    /* --- IMAGE CAROUSEL STYLES (1240x1024 aspect ratio) --- */
     .carousel-container {
       position: relative;
-      margin-bottom: 20px; /* Spacing between carousel and video below */
+      margin-bottom: 24px;
     }
     .carousel-track {
       display: flex;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
       scroll-behavior: smooth;
-      gap: 12px;
       scrollbar-width: none; /* Firefox */
     }
     .carousel-track::-webkit-scrollbar {
@@ -44,8 +43,10 @@
     }
     .carousel-slide img {
       width: 100%;
-      height: 400px;
-      object-fit: cover;
+      aspect-ratio: 1240 / 1024;
+      height: auto;
+      object-fit: contain;
+      background: #000;
       border-radius: 8px;
       display: block;
       margin-bottom: 0;
@@ -87,64 +88,48 @@
 </head>
 <body>
 
-  <!-- JUMP MENU (Links to project IDs below) -->
+  <!-- TOP MENU BAR -->
   <nav>
-    <a href="#project1">Tel Aviv Photo Series</a>
-    <a href="#project2">Video & PDF Case Study</a>
+    <a href="index.html">Home</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#video">Video</a>
+    <a href="#details">Details</a>
   </nav>
 
-  <h1>My Portfolio</h1>
+  <!-- THERMAL ACTUATOR PROJECT -->
+  <div class="project" id="thermal-actuator">
+    <h1>ThermalActuator</h1>
+    <p>Short introduction to the ThermalActuator project.</p>
 
-  <!-- PROJECT 1 -->
-  <div class="project" id="project1">
-    <h2>Tel Aviv Photo Series</h2>
-    <img src="images/netanyahu-tel-aviv-e1792925646830.webp" alt="Tel Aviv photo">
-    <p>A brief one-sentence overview of this photojournalism piece.</p>
-
-    <!-- EXPANDABLE DETAILS DRAWER -->
-    <details>
-      <summary>Read More & View Documents</summary>
-      <div class="hidden-content">
-        <p>Here is the full backstory, location context, and technical notes for this project. It remains hidden until clicked.</p>
-        <p><a href="docs/project1-notes.pdf" target="_blank">Open Full Project PDF &rarr;</a></p>
+    <!-- 1. IMAGE CAROUSEL (1240x1024 px) -->
+    <div class="carousel-container" id="gallery">
+      <div class="carousel-track" id="thermal-actuator-track">
+        <div class="carousel-slide"><img src="images/Takeout_area.jpg" alt="Takeout area" width="1240" height="1024"></div>
+        <div class="carousel-slide"><img src="images/Takeout_75deg.jpg" alt="Takeout 75 degree view" width="1240" height="1024"></div>
+        <div class="carousel-slide"><img src="images/Takeout_60deg.jpg" alt="Takeout 60 degree view" width="1240" height="1024"></div>
+        <div class="carousel-slide"><img src="images/Takeout_45deg_design3.jpg" alt="Takeout 45 degree design 3" width="1240" height="1024"></div>
+        <div class="carousel-slide"><img src="images/Takeout_45deg_design2.jpg" alt="Takeout 45 degree design 2" width="1240" height="1024"></div>
+        <div class="carousel-slide"><img src="images/Takeout_CloseUp_design1.jpg" alt="Takeout close up design 1" width="1240" height="1024"></div>
       </div>
-    </details>
-  </div>
-
-  <!-- PROJECT 2 (Hyperlinked from #project2 in nav) -->
-  <div class="project" id="project2">
-    <h2>Video & PDF Case Study</h2>
-    <p>Short introduction to your second project.</p>
-
-    <!-- 1. IMAGE CAROUSEL (Above Video) -->
-    <div class="carousel-container">
-		<div class="carousel-track" id="project2-track">
-			<div class="carousel-slide"><img src="images/Takeout_area.jpg" alt="Takeout area"></div>
-			<div class="carousel-slide"><img src="images/Takeout_75deg.jpg" alt="Takeout 75 degree view"></div>
-			<div class="carousel-slide"><img src="images/Takeout_60deg.jpg" alt="Takeout 60 degree view"></div>
-			<div class="carousel-slide"><img src="images/Takeout_45deg_design3.jpg" alt="Takeout 45 degree design 3"></div>
-			<div class="carousel-slide"><img src="images/Takeout_45deg_design2.jpg" alt="Takeout 45 degree design 2"></div>
-			<div class="carousel-slide"><img src="images/Takeout_CloseUp_design1.jpg" alt="Takeout close up design 1"></div>
-		</div>
-      <button class="carousel-btn prev-btn" onclick="moveSlide('project2-track', -1)">&#10094;</button>
-      <button class="carousel-btn next-btn" onclick="moveSlide('project2-track', 1)">&#10095;</button>
+      <button class="carousel-btn prev-btn" onclick="moveSlide('thermal-actuator-track', -1)" aria-label="Previous slide">&#10094;</button>
+      <button class="carousel-btn next-btn" onclick="moveSlide('thermal-actuator-track', 1)" aria-label="Next slide">&#10095;</button>
     </div>
 
-    <!-- 2. EMBEDDED VIDEO PLAYER (Replace VIDEO_ID with your YouTube video ID) -->
-    <div class="video-wrapper">
-      <iframe 
-        src="https://youtube.com" 
-        title="Project 2 Video"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    <!-- 2. EMBEDDED YOUTUBE VIDEO (Replace VIDEO_ID with your actual YouTube video ID) -->
+    <div class="video-wrapper" id="video">
+      <iframe
+        src="https://www.youtube.com/embed/VIDEO_ID"
+        title="ThermalActuator Video"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen>
       </iframe>
     </div>
 
     <!-- EXPANDABLE DETAILS DRAWER -->
-    <details>
-      <summary>Read More & View Case Study PDF</summary>
+    <details id="details">
+      <summary>Read More &amp; View Case Study PDF</summary>
       <div class="hidden-content">
-        <p>Detailed breakdown of the project goes here.</p>
+        <p>Detailed breakdown of the ThermalActuator project goes here.</p>
         <p><a href="docs/project2-notes.pdf" target="_blank">Open Case Study PDF &rarr;</a></p>
       </div>
     </details>
