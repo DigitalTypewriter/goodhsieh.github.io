@@ -15,23 +15,15 @@ body {
 /* Full-width Top Menu Bar (scrolls normally) */
 nav {
   background: #f4f4f4;
-  padding: 15px 0;
+  padding: 15px 20px;
   border-bottom: 1px solid #ddd;
   margin-bottom: 30px;
 }
 
-.nav-inner {
-  max-width: 1100px; /* Matches .project */
-  margin: 0 auto;
-  padding: 0 20px;   /* Matches .project */
-  box-sizing: border-box;
-}
-    
 .project {
   max-width: 1100px; /* Widened from 800px to fit two columns comfortably */
   margin: 0 auto 50px;
   padding: 0 20px 30px;
-  box-sizing: border-box;
 }
 
 /* Side-by-side layout on desktop */
@@ -179,13 +171,7 @@ nav {
 .next-btn:active {
   transform: translate(3px, -50%) scale(1.15);
 }
-    
-.carousel-caption {
-  margin: 8px 0 0;
-  font-size: 0.9rem;
-  color: #555;
-  text-align: left;
-}
+
     /* --- RESPONSIVE 16:9 VIDEO WRAPPER --- */
 .video-wrapper {
   position: relative;
@@ -208,13 +194,12 @@ nav {
 <body>
 
   <!-- TOP MENU BAR -->
-<nav>
-  <div class="nav-inner">
+  <nav>
     <a href="index.html">Home</a>
     <a href="#gallery">Gallery</a>
     <a href="#video">Video</a>
-  </div>
-</nav>
+    <a href="#details">Details</a>
+  </nav>
 
 <div class="project" id="thermal-actuator">
 
@@ -224,31 +209,16 @@ nav {
     <!-- LEFT: IMAGE CAROUSEL -->
     <div class="carousel-container" id="gallery">
       <div class="carousel-track" id="thermal-actuator-track">
-  <div class="carousel-slide">
-    <img src="images/Takeout_area.jpg" alt="Takeout area" width="1240" height="1024">
-    <p class="carousel-caption">Figure 1: Takeout area overview</p>
-  </div>
-  <div class="carousel-slide">
-    <img src="images/Takeout_75deg.jpg" alt="Takeout 75 degree view" width="1240" height="1024">
-    <p class="carousel-caption">Figure 2: 75-degree view</p>
-  </div>
-  <div class="carousel-slide">
-    <img src="images/Takeout_60deg.jpg" alt="Takeout 60 degree view" width="1240" height="1024">
-    <p class="carousel-caption">Figure 3: 60-degree view</p>
-  </div>
-  <div class="carousel-slide">
-    <img src="images/Takeout_45deg_design3.jpg" alt="Takeout 45 degree design 3" width="1240" height="1024">
-    <p class="carousel-caption">Figure 4: 45-degree view (Design 3)</p>
-  </div>
-  <div class="carousel-slide">
-    <img src="images/Takeout_45deg_design2.jpg" alt="Takeout 45 degree design 2" width="1240" height="1024">
-    <p class="carousel-caption">Figure 5: 45-degree view (Design 2)</p>
-  </div>
-  <div class="carousel-slide">
-    <img src="images/Takeout_CloseUp_design1.jpg" alt="Takeout close up design 1" width="1240" height="1024">
-    <p class="carousel-caption">Figure 6: Close-up detail (Design 1)</p>
-  </div>
-</div>
+        <div class="carousel-slide"><img src="images/Takeout_area.jpg" alt="Takeout area" width="1240" height="1024"></div>
+        <div class="carousel-slide"><img src="images/Takeout_75deg.jpg" alt="Takeout 75 degree view" width="1240" height="1024"></div>
+        <div class="carousel-slide"><img src="images/Takeout_60deg.jpg" alt="Takeout 60 degree view" width="1240" height="1024"></div>
+        <div class="carousel-slide"><img src="images/Takeout_45deg_design3.jpg" alt="Takeout 45 degree design 3" width="1240" height="1024"></div>
+        <div class="carousel-slide"><img src="images/Takeout_45deg_design2.jpg" alt="Takeout 45 degree design 2" width="1240" height="1024"></div>
+        <div class="carousel-slide"><img src="images/Takeout_CloseUp_design1.jpg" alt="Takeout close up design 1" width="1240" height="1024"></div>
+      </div>
+      <button class="carousel-btn prev-btn" onclick="moveSlide('thermal-actuator-track', -1)" aria-label="Previous slide">&#10094;</button>
+      <button class="carousel-btn next-btn" onclick="moveSlide('thermal-actuator-track', 1)" aria-label="Next slide">&#10095;</button>
+    </div>
 
     <!-- RIGHT: TEXT -->
     <div class="project-info">
