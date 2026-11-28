@@ -21,9 +21,39 @@ nav {
 }
 
 .project {
-  max-width: 800px;
+  max-width: 1100px; /* Widened from 800px to fit two columns comfortably */
   margin: 0 auto 50px;
   padding: 0 20px 30px;
+}
+
+/* Side-by-side layout on desktop */
+.hero-layout {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+  margin-bottom: 30px;
+}
+
+.hero-layout .carousel-container {
+  flex: 1.4;      /* Carousel takes ~58% of the width */
+  min-width: 0;   /* Prevents the scrollable track from breaking flexbox */
+  margin-bottom: 0;
+}
+
+.project-info {
+  flex: 1;        /* Text takes ~42% of the width */
+}
+
+.project-info h1 {
+  margin-top: 0;  /* Aligns the title with the top edge of the carousel */
+}
+
+/* Stack vertically on small screens */
+@media (max-width: 768px) {
+  .hero-layout {
+    flex-direction: column;
+    gap: 20px;
+  }
 }
     nav a { margin-right: 20px; text-decoration: none; color: #333; font-weight: bold; }
     nav a:hover { color: #0066cc; }
@@ -164,45 +194,52 @@ nav {
     <a href="#details">Details</a>
   </nav>
 
-  <!-- THERMAL ACTUATOR PROJECT -->
-  <div class="project" id="thermal-actuator">
-    <h1>Thermal Actuator</h1>
-    <p>Short introduction to the ThermalActuator project.</p>
+<div class="project" id="thermal-actuator">
 
-    <!-- 1. IMAGE CAROUSEL (1280x1024 px) -->
+  <!-- SIDE-BY-SIDE CONTAINER -->
+  <div class="hero-layout">
+    
+    <!-- LEFT: IMAGE CAROUSEL -->
     <div class="carousel-container" id="gallery">
       <div class="carousel-track" id="thermal-actuator-track">
-        <div class="carousel-slide"><img src="images/Takeout_area.jpg" alt="Takeout area" width="1280" height="1024"></div>
-        <div class="carousel-slide"><img src="images/Takeout_75deg.jpg" alt="Takeout 75 degree view" width="1280" height="1024"></div>
-        <div class="carousel-slide"><img src="images/Takeout_60deg.jpg" alt="Takeout 60 degree view" width="1280" height="1024"></div>
-        <div class="carousel-slide"><img src="images/Takeout_45deg_design3.jpg" alt="Takeout 45 degree design 3" width="1280" height="1024"></div>
-        <div class="carousel-slide"><img src="images/Takeout_45deg_design2.jpg" alt="Takeout 45 degree design 2" width="1280" height="1024"></div>
-        <div class="carousel-slide"><img src="images/Takeout_CloseUp_design1.jpg" alt="Takeout close up design 1" width="1280" height="1024"></div>
+        <div class="carousel-slide"><img src="images/Takeout_area.jpg" alt="Takeout area" width="1240" height="1024"></div>
+        <div class="carousel-slide"><img src="images/Takeout_75deg.jpg" alt="Takeout 75 degree view" width="1240" height="1024"></div>
+        <div class="carousel-slide"><img src="images/Takeout_60deg.jpg" alt="Takeout 60 degree view" width="1240" height="1024"></div>
+        <div class="carousel-slide"><img src="images/Takeout_45deg_design3.jpg" alt="Takeout 45 degree design 3" width="1240" height="1024"></div>
+        <div class="carousel-slide"><img src="images/Takeout_45deg_design2.jpg" alt="Takeout 45 degree design 2" width="1240" height="1024"></div>
+        <div class="carousel-slide"><img src="images/Takeout_CloseUp_design1.jpg" alt="Takeout close up design 1" width="1240" height="1024"></div>
       </div>
       <button class="carousel-btn prev-btn" onclick="moveSlide('thermal-actuator-track', -1)" aria-label="Previous slide">&#10094;</button>
       <button class="carousel-btn next-btn" onclick="moveSlide('thermal-actuator-track', 1)" aria-label="Next slide">&#10095;</button>
     </div>
 
-    <!-- 2. EMBEDDED YOUTUBE VIDEO (Replace VIDEO_ID with your actual YouTube video ID) -->
-    <div class="video-wrapper" id="video">
-      <iframe
-        src="https://www.youtube.com/embed/VIDEO_ID"
-        title="ThermalActuator Video"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen>
-      </iframe>
+    <!-- RIGHT: TEXT -->
+    <div class="project-info">
+      <h1>ThermalActuator</h1>
+      <p>Short introduction to the ThermalActuator project.</p>
+
+      <details id="details">
+        <summary>Read More &amp; View Case Study PDF</summary>
+        <div class="hidden-content">
+          <p>Detailed breakdown of the ThermalActuator project goes here.</p>
+          <p><a href="docs/project2-notes.pdf" target="_blank">Open Case Study PDF &rarr;</a></p>
+        </div>
+      </details>
     </div>
 
-    <!-- EXPANDABLE DETAILS DRAWER -->
-    <details id="details">
-      <summary>Read More &amp; View Case Study PDF</summary>
-      <div class="hidden-content">
-        <p>Detailed breakdown of the ThermalActuator project goes here.</p>
-        <p><a href="docs/project2-notes.pdf" target="_blank">Open Case Study PDF &rarr;</a></p>
-      </div>
-    </details>
   </div>
 
+  <!-- BELOW: EMBEDDED YOUTUBE VIDEO -->
+  <div class="video-wrapper" id="video">
+    <iframe
+      src="https://www.youtube.com/embed/VIDEO_ID"
+      title="ThermalActuator Video"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+</div>
 <script>
   function moveSlide(trackId, direction) {
     const track = document.getElementById(trackId);
