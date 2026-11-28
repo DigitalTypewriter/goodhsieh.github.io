@@ -90,30 +90,44 @@
   transform: translate(10px, -50%);
 }
 
-/* 1. Slide & fade in on desktop hover OR mobile tap */
-.carousel-container:hover .carousel-btn,
+/* 1. Mobile tap-to-reveal (controlled strictly by the JS timer) */
 .carousel-container.show-controls .carousel-btn {
   opacity: 0.85;
   pointer-events: auto;
   transform: translate(0, -50%);
 }
 
-/* 2. Scale up & nudge outward on direct hover OR finger press */
-.carousel-btn:hover,
+/* 2. Desktop-only mouse hover (prevents sticky hover on phones) */
+@media (hover: hover) {
+  .carousel-container:hover .carousel-btn {
+    opacity: 0.85;
+    pointer-events: auto;
+    transform: translate(0, -50%);
+  }
+
+  .carousel-btn:hover {
+    opacity: 1 !important;
+  }
+
+  .prev-btn:hover {
+    transform: translate(-3px, -50%) scale(1.15);
+  }
+
+  .next-btn:hover {
+    transform: translate(3px, -50%) scale(1.15);
+  }
+}
+
+/* 3. Finger press / click animation (works on both mobile and desktop) */
 .carousel-btn:active {
   opacity: 1 !important;
 }
-
-.prev-btn:hover,
 .prev-btn:active {
   transform: translate(-3px, -50%) scale(1.15);
 }
-
-.next-btn:hover,
 .next-btn:active {
   transform: translate(3px, -50%) scale(1.15);
 }
-
 
     /* --- RESPONSIVE 16:9 VIDEO WRAPPER --- */
     .video-wrapper {
@@ -201,7 +215,7 @@
 
       hideTimeout = setTimeout(() => {
         carousel.classList.remove('show-controls');
-      }, 2500);
+      }, 1500);
     }, { passive: true });
   });
 </script>
