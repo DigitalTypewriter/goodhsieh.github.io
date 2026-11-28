@@ -22,7 +22,7 @@
     summary:hover { text-decoration: underline; }
     .hidden-content { margin-top: 15px; }
 
-  /* --- IMAGE CAROUSEL STYLES (1280x1024 aspect ratio) --- */
+/* --- IMAGE CAROUSEL STYLES (1280x1024 aspect ratio) --- */
 .carousel-container {
   position: relative;
   margin-bottom: 24px;
@@ -57,7 +57,7 @@
   margin-bottom: 0;
 }
 
-/* --- UNOBSTRUCTED HOVER BUTTONS --- */
+/* --- UNOBSTRUCTED HOVER & TAP BUTTONS --- */
 .carousel-btn {
   position: absolute;
   top: 50%;
@@ -72,8 +72,9 @@
   cursor: pointer;
   font-size: 24px;
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.85));
+  -webkit-tap-highlight-color: transparent;
 
-  /* Hidden until user hovers over the image */
+  /* Hidden until user hovers (desktop) or taps (mobile) */
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.25s ease, transform 0.25s ease;
@@ -89,37 +90,30 @@
   transform: translate(10px, -50%);
 }
 
-/* 1. Slide & fade in when hovering over the carousel */
-.carousel-container:hover .carousel-btn {
+/* 1. Slide & fade in on desktop hover OR mobile tap */
+.carousel-container:hover .carousel-btn,
+.carousel-container.show-controls .carousel-btn {
   opacity: 0.85;
   pointer-events: auto;
   transform: translate(0, -50%);
 }
 
-/* 2. Scale up & nudge outward when hovering directly on the arrow */
-.carousel-btn:hover {
+/* 2. Scale up & nudge outward on direct hover OR finger press */
+.carousel-btn:hover,
+.carousel-btn:active {
   opacity: 1 !important;
 }
-.prev-btn:hover {
+
+.prev-btn:hover,
+.prev-btn:active {
   transform: translate(-3px, -50%) scale(1.15);
 }
-.next-btn:hover {
+
+.next-btn:hover,
+.next-btn:active {
   transform: translate(3px, -50%) scale(1.15);
 }
 
-/* 3. Click feedback */
-.carousel-btn:active {
-  transform: translate(0, -50%) scale(0.92);
-}
-
-/* Keep subtly visible on touchscreens where hover doesn't exist */
-@media (hover: none) {
-  .carousel-btn {
-    opacity: 0.75;
-    pointer-events: auto;
-    transform: translate(0, -50%);
-  }
-}
 
     /* --- RESPONSIVE 16:9 VIDEO WRAPPER --- */
     .video-wrapper {
@@ -189,13 +183,27 @@
     </details>
   </div>
 
-  <script>
-    function moveSlide(trackId, direction) {
-      const track = document.getElementById(trackId);
-      const slideWidth = track.clientWidth;
-      track.scrollBy({ left: direction * slideWidth, behavior: 'smooth' });
-    }
-  </script>
+<script>
+  // 1. Your existing left/right click function
+  function moveSlide(trackId, direction) {
+    const track = document.getElementById(trackId);
+    const slideWidth = track.clientWidth;
+    track.scrollBy({ left: direction * slideWidth, behavior: 'smooth' });
+  }
 
+  // 2. Mobile tap-to-reveal animation (for all carousels on the page)
+  document.querySelectorAll('.carousel-container').forEach(carousel => {
+    let hideTimeout;
+
+    carousel.addEventListener('touchstart', () => {
+      carousel.classList.add('show-controls');
+      clearTimeout(hideTimeout);
+
+      hideTimeout = setTimeout(() => {
+        carousel.classList.remove('show-controls');
+      }, 2500);
+    }, { passive: true });
+  });
+</script>
 </body>
 </html>
