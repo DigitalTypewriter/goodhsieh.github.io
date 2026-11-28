@@ -15,15 +15,23 @@ body {
 /* Full-width Top Menu Bar (scrolls normally) */
 nav {
   background: #f4f4f4;
-  padding: 15px 20px;
+  padding: 15px 0; /* Removed left/right padding here */
   border-bottom: 1px solid #ddd;
   margin-bottom: 30px;
+}
+
+.nav-inner {
+  max-width: 1100px; /* Matches .project */
+  margin: 0 auto;
+  padding: 0 20px;   /* Matches .project */
+  box-sizing: border-box;
 }
 
 .project {
   max-width: 1100px; /* Widened from 800px to fit two columns comfortably */
   margin: 0 auto 50px;
   padding: 0 20px 30px;
+  box-sizing: border-box;
 }
 
 /* Side-by-side layout on desktop */
@@ -194,12 +202,13 @@ nav {
 <body>
 
   <!-- TOP MENU BAR -->
-  <nav>
+<nav>
+  <div class="nav-inner">
     <a href="index.html">Home</a>
     <a href="#gallery">Gallery</a>
     <a href="#video">Video</a>
-    <a href="#details">Details</a>
-  </nav>
+  </div>
+</nav>
 
 <div class="project" id="thermal-actuator">
 
