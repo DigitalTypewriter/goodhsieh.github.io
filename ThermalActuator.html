@@ -21,52 +21,63 @@ nav {
 }
 
 .nav-inner {
-  max-width: 1100px; /* Matches .project */
-  margin: 0 auto;
+  width: 100%; /* Matches .project */
   padding: 0 20px;   /* Matches .project */
   box-sizing: border-box;
 }
 
 .project {
-  max-width: 1100px; /* Widened from 800px to fit two columns comfortably */
-  margin: 0 auto 50px;
-  padding: 0 20px 30px;
+  width: 100%; /* Widened from 800px to fit two columns comfortably */
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
 /* Side-by-side layout on desktop */
 .hero-layout {
   display: flex;
-  gap: 30px;
+  gap: 0;
   align-items: flex-end; /* Aligns text to the bottom of the carousel */
-  margin-bottom: 30px;
-}
-
-.project-info p:last-child {
-  margin-bottom: 0; /* Removes default paragraph gap at the bottom */
+  margin-bottom: 0;
 }
 
 .hero-layout .carousel-container {
-  flex: 1;      /* Carousel takes ~58% of the width */
-  min-width: 0;   /* Prevents the scrollable track from breaking flexbox */
+  flex: 0 0 50%;      /* Carousel takes ~58% of the width */
+  width: 50%;   /* Prevents the scrollable track from breaking flexbox */
+  min-width: 0;
   margin-bottom: 0;
 }
 
 .project-info {
-  flex: 1;        /* Text takes ~42% of the width */
+  flex: 0 0 50%;        /* Text takes ~42% of the width */
+  width: 50%;
+  padding: 24px 32px;
+  box-sizing; border-box;
 }
 
 .project-info h1 {
   margin-top: 0;  /* Aligns the title with the top edge of the carousel */
 }
-
+    
+.project-info p:last-child {
+  margin-bottom: 0; /* Removes default paragraph gap at the bottom */
+}
 /* Stack vertically on small screens */
     /* Mobile: Title/text on top, carousel below, video at bottom */
 @media (max-width: 768px) {
   .hero-layout {
     flex-direction: column-reverse; /* Puts .project-info above the carousel */
     align-items: stretch;           /* Ensures full width on mobile */
-    gap: 15px;
+  }
+  
+  .hero-layout .carousel-container,
+  .project-info {
+    flex: none;
+    width: 100%;
+  }
+
+  .project-info {
+    padding: 20px;
   }
 }
     nav a { margin-right: 20px; text-decoration: none; color: #333; font-weight: bold; }
